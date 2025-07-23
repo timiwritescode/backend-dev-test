@@ -1,8 +1,10 @@
-import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, HttpException, Logger } from "@nestjs/common";
+import { ArgumentsHost, 
+    Catch, 
+    ExceptionFilter, 
+    HttpException, 
+    Logger } from "@nestjs/common";
 import {Response, Request} from "express"
 import { ErrorResponseDto } from "src/dto/errorResponse.dto";
-import { ValidationErrorResponseDto } from "src/dto/validationErrorResponse.dto";
-import { ValidationException } from "src/exceptions/validation.exception";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter{
