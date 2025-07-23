@@ -11,7 +11,6 @@ export class EnvironmentVariables {
 
     @IsNotEmpty()
     @IsString() 
-    // @Matches(/^mongodb(?:\+srv)?:\/\/[^\s@]+@[^\s@]+\/?[^\s]*$/, {message: "MONGO_URI must be a valid MONGO_URI"})
     MONGO_URI: string;
    
 
