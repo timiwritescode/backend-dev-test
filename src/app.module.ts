@@ -5,6 +5,7 @@ import { UserModule } from './api/user/user.module';
 import { EnvModule } from './config/env.module';
 import { EnvService } from './config/env.service';
 import { FirebaseAdminModule } from './config/firebase-admin.module';
+import { CompanyModule } from './api/company/company.module';
 
 
 @Module({
@@ -18,6 +19,6 @@ import { FirebaseAdminModule } from './config/firebase-admin.module';
     }),
     FirebaseAdminModule,
     AuthModule, 
-    UserModule]
+    UserModule, CompanyModule]
 })
 export class AppModule {}
