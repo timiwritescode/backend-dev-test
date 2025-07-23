@@ -4,6 +4,7 @@ import { AuthModule } from './api/auth/auth.module';
 import { UserModule } from './api/user/user.module';
 import { EnvModule } from './config/env.module';
 import { EnvService } from './config/env.service';
+import { FirebaseAdminModule } from './config/firebase-admin.module';
 
 
 @Module({
@@ -15,6 +16,7 @@ import { EnvService } from './config/env.service';
         uri: envService.mongoURI,
       }),
     }),
+    FirebaseAdminModule,
     AuthModule, 
     UserModule]
 })

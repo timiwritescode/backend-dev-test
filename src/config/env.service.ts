@@ -20,4 +20,16 @@ export class EnvService {
     get mongoURI() {
         return this.env.MONGO_URI;
     }
+
+    get fireBaseServiceAccount64() {
+        return this.env.FIREBASE_SERVICE_ACCOUNT_B64;
+    }
+
+    get firebaseApiKey() {
+        return this.env.FIREBASE_API_KEY
+    }
+
+    get firebaseEmailAndPasswordSigninUrl() {
+        return this.env.FIREBASE_EMAIL_AND_PASSWORD_SIGNIN_URL;
+    }
 }
