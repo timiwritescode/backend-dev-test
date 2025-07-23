@@ -1,11 +1,9 @@
-import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
-import { SignUpRequestDto } from '../auth/dtos/signUpRequest.dto';
+import { Injectable } from '@nestjs/common';
 import { FirebaseAdmin } from 'src/config/firebase.config';
-import { error } from 'console';
+
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserRole } from 'src/persistence/schemas/user.schema';
+import { User } from 'src/persistence/schemas/user.schema';
 import { Model } from 'mongoose';
-import { GeneralResponseDto } from 'src/dto/generalResponse.dto';
 import { UserDto } from './dto/user.dto';
 
 
@@ -14,9 +12,7 @@ import { UserDto } from './dto/user.dto';
 export class UserService {
     constructor(
         @InjectModel(User.name) 
-        private userModel: Model<User>,
-
-        private admin: FirebaseAdmin) {}
+        private userModel: Model<User>) {}
 
 
     /**
