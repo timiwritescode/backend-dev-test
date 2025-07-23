@@ -1,9 +1,15 @@
-import { BadRequestException, Controller, Get } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
-    @Get()
+    @Get("/sign-up")
     async registerUser() {
-        throw new Error("Can't give you this endpoint at this time, thanks")
+
     }
+
+
+    @Post("/sign-in")
+    async signInUser() {}
+
+
 }
