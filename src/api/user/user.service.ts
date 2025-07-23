@@ -17,31 +17,6 @@ export class UserService {
         private userModel: Model<User>,
 
         private admin: FirebaseAdmin) {}
-    
-    
-    /**
-     * Method creates a new firebase auth user and saves the return user object to application database
-     * 
-     * @param dto sign in request dto
-     * @returns User dto
-     */
-    // async createUsser(dto: SignUpRequestDto): Promise<UserDto> {
-    //     // create user with firebase
-        
-    //     const app = this.admin.setup();
-    //     const newUser = await app
-    //                     .auth()
-    //                     .createUser({email: dto.email, password: dto.password})
-            
-    //     await app.auth().setCustomUserClaims(newUser.uid, {role: "USer"})
-
-    //     // persist user to local mongo
-    //     const savedUser = await this.saveUserToDb(newUser.email, newUser.uid, dto.role);
-    //     return new UserDto(savedUser);
-            
-        
-    // } 
-
 
 
     /**
