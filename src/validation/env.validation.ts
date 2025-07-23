@@ -11,7 +11,7 @@ export class EnvironmentVariables {
 
     @IsNotEmpty()
     @IsString() 
-    MONGO_URI: string;
+    DB_URI: string;
    
 
     @IsNumberString()

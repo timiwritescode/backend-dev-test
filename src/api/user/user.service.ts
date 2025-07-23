@@ -1,22 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { FirebaseAdmin } from 'src/config/firebase.config';
-
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/persistence/schemas/user.schema';
-import { Model } from 'mongoose';
 import { UserDto } from './dto/user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User, UserRole } from 'src/entities/user.entity';
 
 
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectModel(User.name) 
-        private userModel: Model<User>) {}
+        @InjectRepository(User) 
+        private userRepo: Repository<User>) {}
 
 
     /**
-     * Method creates a user object from email, uid and role and persist to mongo database
+     * Method creates a user object from email, uid and role and persist to database
      * 
      * 
      * @param email user email 
@@ -24,12 +22,11 @@ export class UserService {
      * @param role user role (optional)
      * @returns User
      */
-    async createUser(email:string, uid: string, role?: string): Promise<UserDto> {
-        const createdUser = new this.userModel({
-                                email, 
-                                fireBaseAuthUserId: uid, 
-                                role});
-        const savedUser = await createdUser.save();
+    async createUser(email:string, uid: string, role?: UserRole): Promise<UserDto> {
+        const newUser = this.userRepo.create({
+            email, fireBaseAuthUserId: uid, role: role
+        });
+        const savedUser = await this.userRepo.save(newUser)
         return new UserDto(savedUser);
     }
 }

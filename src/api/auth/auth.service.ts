@@ -5,6 +5,7 @@ import { GeneralResponseDto } from 'src/dto/generalResponse.dto';
 import { SignInRequestDto } from './dtos/signInRequest.dto';
 import { FirebaseService } from './firebase.service';
 import { FirebaseAdmin } from 'src/config/firebase.config';
+import { UserRole } from 'src/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
         private admin: FirebaseAdmin,
         private readonly firebaseService: FirebaseService) {}
 
-
+ 
 
     async signUpUser(dto: SignUpRequestDto): Promise<GeneralResponseDto> {
         try {
@@ -26,8 +27,8 @@ export class AuthService {
             await app.auth().setCustomUserClaims(newUser.uid, {role: "USer"})
         
         
-            // persist firebase user to  application mondodb
-            const response = await this.userService.createUser(dto.email, newUser.uid, dto.role);
+            // persist firebase user to  application database
+            const response = await this.userService.createUser(dto.email, newUser.uid, dto.role as UserRole);
             return new GeneralResponseDto(
                 true,
                 "User sign up successful",

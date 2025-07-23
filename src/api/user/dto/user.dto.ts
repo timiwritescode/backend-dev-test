@@ -1,7 +1,6 @@
-import { User } from "src/persistence/schemas/user.schema";
+import { User } from "src/entities/user.entity";
 
-export class UserDto {
-    
+export class UserDto {   
     email: string;
     userId: string;
     constructor(user: User) {

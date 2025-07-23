@@ -17,8 +17,8 @@ export class EnvService {
     }
 
 
-    get mongoURI() {
-        return this.env.MONGO_URI;
+    get dbURI() {
+        return this.env.DB_URI;
     }
 
     get fireBaseServiceAccount64() {

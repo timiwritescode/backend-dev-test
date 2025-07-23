@@ -1,24 +1,19 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from "@nestjs/mongoose"
 import { AuthModule } from './api/auth/auth.module';
 import { UserModule } from './api/user/user.module';
 import { EnvModule } from './config/env.module';
-import { EnvService } from './config/env.service';
-import { FirebaseAdminModule } from './config/firebase-admin.module';
-import { CompanyModule } from './api/company/company.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PostgreSQLConfigService } from './config/typeorm.config';
 
 
 @Module({
   imports: [
     EnvModule,
-    MongooseModule.forRootAsync({
-      inject: [EnvService],
-      useFactory: (envService: EnvService) => ({
-        uri: envService.mongoURI,
-      }),
+    TypeOrmModule.forRootAsync({
+      useClass: PostgreSQLConfigService,
+      inject: [PostgreSQLConfigService]
     }),
-    FirebaseAdminModule,
     AuthModule, 
-    UserModule, CompanyModule]
+    UserModule]
 })
 export class AppModule {}

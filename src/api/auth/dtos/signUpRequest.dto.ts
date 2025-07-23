@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
-import { UserRole } from "src/persistence/schemas/user.schema";
+import { UserRole } from "src/entities/user.entity";
 
 export class SignUpRequestDto {
     @IsEmail()
