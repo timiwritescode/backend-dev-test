@@ -6,7 +6,7 @@ import { User } from "./user.entity";
 @Entity("images")
 export class Image {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({nullable: false, unique: true})
     customImageId: string;
