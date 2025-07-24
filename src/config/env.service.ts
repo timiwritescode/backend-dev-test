@@ -32,4 +32,21 @@ export class EnvService {
     get firebaseEmailAndPasswordSigninUrl() {
         return this.env.FIREBASE_EMAIL_AND_PASSWORD_SIGNIN_URL;
     }
+
+
+    get awsAccessKeyId() {
+        return this.env.AWS_ACCESS_KEY_ID;
+    }
+
+    get awsSecretAccessKey() {
+        return this.env.AWS_SECRET_ACCESS_KEY;
+    }
+
+    get awsS3BucketName() {
+        return this.env.AWS_S3_BUCKET_NAME;
+    }
+
+    get awsS3BucketRegion() {
+        return this.env.AWS_S3_BUCKET_REGION;
+    }
 }
