@@ -3,6 +3,7 @@ import { UserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User, UserRole } from 'src/entities/user.entity';
+import { GeneralResponseDto } from 'src/dto/generalResponse.dto';
 
 
 
@@ -31,6 +32,23 @@ export class UserService {
     }
 
 
+    /**
+     * Service method for getting user details
+     * 
+     * @param email Logged in user email
+     * @returns General responsse dto containig user details in the data field
+     * @throws NotFoundException when user is not found
+     */
+    async getUserDetails(email: string): Promise<GeneralResponseDto> {
+        const user = await this.getUserByEmail(email);
+        return new GeneralResponseDto(
+            true,
+            "User retrieval successful",
+            new UserDto(user)
+        )
+    }
+
+
     public async getUserByEmail(email: string, loadCompanies = false) {
         const userInDb = await this.userRepo.findOneOrFail({
             where: {email},
@@ -43,4 +61,6 @@ export class UserService {
 
         return userInDb
     }
+
+
 }
