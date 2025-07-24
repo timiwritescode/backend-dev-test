@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, HttpException, Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { SignUpRequestDto } from './dtos/signUpRequest.dto';
 import { GeneralResponseDto } from 'src/dto/generalResponse.dto';
@@ -6,6 +6,7 @@ import { SignInRequestDto } from './dtos/signInRequest.dto';
 import { FirebaseService } from './firebase.service';
 import { FirebaseAdmin } from 'src/config/firebase.config';
 import { UserRole } from 'src/entities/user.entity';
+import { UserDto } from '../user/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
 
  
 
-    async signUpUser(dto: SignUpRequestDto): Promise<GeneralResponseDto> {
+    async signUpUser(dto: SignUpRequestDto): Promise<GeneralResponseDto<UserDto>> {
         try {
             const app = this.admin.getFirebaseApp();
             // create new firebase user
@@ -38,8 +39,7 @@ export class AuthService {
              const errors = {
                 "auth/email-already-exists": () => {throw new ConflictException("Email already exists")},
                 'auth/invalid-password': () => {throw new BadRequestException('Password is too weak or invalid')},
-                "auth/invalid-email": () => {throw new BadRequestException('Invalid email format')},
-                "11000": () => {throw new ConflictException("Email already exists")} // user already exist in mongo  
+                "auth/invalid-email": () => {throw new BadRequestException('Invalid email format')}, 
                  }
                  
             const mappedError = errors[error.code];
@@ -53,7 +53,7 @@ export class AuthService {
     }
 
 
-    async signInUser(dto: SignInRequestDto): Promise<GeneralResponseDto> {
+    async signInUser(dto: SignInRequestDto): Promise<GeneralResponseDto<{idToken: string}>> {
         try {
             // sign in with email and password with API
             // returns a verifiable Id Token
@@ -65,7 +65,15 @@ export class AuthService {
             )
             
         } catch (error) {
-            throw error
+            const possibleErrorMessages = ["EMAIL_NOT_FOUND", "INVALID_PASSWORD", "INVALID_LOGIN_CREDENTIALS"]
+            const code = error.response?.data?.error?.message;
+            
+            if (possibleErrorMessages.includes(code)) {
+                throw new UnauthorizedException("Invalid login credentials")
+            }
+
+            throw error;
+            
         }
     }
 }

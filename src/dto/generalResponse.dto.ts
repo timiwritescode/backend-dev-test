@@ -1,9 +1,9 @@
-export class GeneralResponseDto{
+export class GeneralResponseDto<T>{
     success: boolean;
     description: string;
-    data: any;
+    data: T;
 
-    constructor(success: boolean, description: string, data: any) {
+    constructor(success: boolean, description: string, data: T) {
         this.success = success;
         this.description = description;
         this.data = data;

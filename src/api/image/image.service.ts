@@ -22,7 +22,7 @@ export class ImageService {
  * @param pageSize - The number of images to return per page.
  * @returns A paginated list of images sent to the user.
  */
-    async getAllRecievedImages(userId: string, page=1, pageSize=10): Promise<GeneralResponseDto> {
+    async getAllRecievedImages(userId: string, page=1, pageSize=10): Promise<GeneralResponseDto<multipleImagesDto>> {
         const skip = (page - 1) * pageSize;
         const images = await this.imageRepo.find({
             where: {recipient: {fireBaseAuthUserId: userId}},
@@ -55,7 +55,7 @@ export class ImageService {
     * 
     * @throws {NotFoundException} If the image does not exist or is not associated with the user.
     */
-    async getReceivedImageById(userId: string, imageId: string): Promise<GeneralResponseDto> {
+    async getReceivedImageById(userId: string, imageId: string): Promise<GeneralResponseDto<ImageDto>> {
         const image = await this.imageRepo.findOne({
             where: {recipient: {fireBaseAuthUserId: userId}, customImageId: imageId},
             relations: {recipient: true, sender: true}

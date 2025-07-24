@@ -12,7 +12,7 @@ export class FirebaseService {
                                                 "?key=" + 
                                                 this.envService.firebaseApiKey;
 
-        try {
+        
                 
             const { data } = await axios.post(
                 signInURL,
@@ -29,16 +29,7 @@ export class FirebaseService {
             );
             return data;
             
-        } catch (error) {
-            const possibleErrorMessages = ["EMAIL_NOT_FOUND", "INVALID_PASSWORD", "INVALID_LOGIN_CREDENTIALS"]
-            const code = error.response?.data?.error?.message;
-            console.log(code)
-            console.log(possibleErrorMessages.includes(code))
-            if (possibleErrorMessages.includes(code)) {
-                throw new UnauthorizedException("Invalid login credentials")
-            }
-            
-        }
+        
     }
 
 

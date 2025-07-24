@@ -4,12 +4,9 @@ import { CompanyDto } from "src/api/company/dto/company.dto";
 import { MultipleUserCompaniesDto } from "src/api/company/dto/multipleCompanies.dto";
 import { MultipleUsersDto } from "src/api/user/dto/multipleUsers.dto";
 import { UserDto } from "src/api/user/dto/user.dto";
-import { AwsService } from "src/aws/aws.service";
 import { GeneralResponseDto } from "src/dto/generalResponse.dto";
 import { Company } from "src/entities/company.entity";
-import { Image } from "src/entities/image.entity";
 import { User, UserRole } from "src/entities/user.entity";
-import { generateFileHash } from "src/util/util";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -30,7 +27,7 @@ export class AdminUsersService {
      * @param pageSize Number of database elements to take per page
      * @returns General Response Dto
      */
-    async getAllUsers(page=1, pageSize=10): Promise<GeneralResponseDto> {
+    async getAllUsers(page=1, pageSize=10): Promise<GeneralResponseDto<MultipleUsersDto>> {
         const skip = (page - 1) * pageSize;
         const usersInDb = await this.userRepo.find({
             where: {role: UserRole.USER},
@@ -51,7 +48,7 @@ export class AdminUsersService {
      * @param userId Id of User
      * @returns General response Dto
      */
-    async getUserById(userId: string): Promise<GeneralResponseDto> {
+    async getUserById(userId: string): Promise<GeneralResponseDto<UserDto>> {
         const userInDb = await this.userRepo.findOne({
             where: {fireBaseAuthUserId: userId}
         });
@@ -76,7 +73,7 @@ export class AdminUsersService {
      * @param page Current page to read from, default 1
      * @param pageSize Number of element to take per page
      */
-    async getUserCompanies(userId: string, page=1, pageSize=10): Promise<GeneralResponseDto> {
+    async getUserCompanies(userId: string, page=1, pageSize=10): Promise<GeneralResponseDto<MultipleUserCompaniesDto>> {
         const skip = (page - 1) * 10
         const companies = await this.companyRepo.find({
             where: {user: {fireBaseAuthUserId: userId}},
@@ -101,7 +98,7 @@ export class AdminUsersService {
      * @param companyId Id of specific user company
      * @returns General response
      */
-    async getUserCompanyById(userId: string, companyId: string): Promise<GeneralResponseDto> {
+    async getUserCompanyById(userId: string, companyId: string): Promise<GeneralResponseDto<CompanyDto>> {
         const companyInDb = await this.companyRepo.findOne({
             where: {user: {fireBaseAuthUserId: userId}, customCompanyId: companyId},
             relations: {user: true}

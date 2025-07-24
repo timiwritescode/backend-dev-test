@@ -37,7 +37,7 @@ export class AdminImageService {
     async sendImageToUser(
         loggedInUserId: string, 
         recipientUserId: string,
-        image: Express.Multer.File): Promise<GeneralResponseDto> {
+        image: Express.Multer.File): Promise<GeneralResponseDto<ImageDto>> {
         
         const loggedInUser = await this.userRepo.findOneBy({fireBaseAuthUserId: loggedInUserId});
         const recipientUser = await this.userRepo.findOneBy({fireBaseAuthUserId: recipientUserId, role: UserRole.USER}); // Only send images to "user" role

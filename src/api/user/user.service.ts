@@ -39,7 +39,7 @@ export class UserService {
      * @returns General responsse dto containig user details in the data field
      * @throws NotFoundException when user is not found
      */
-    async getUserDetails(email: string): Promise<GeneralResponseDto> {
+    async getUserDetails(email: string): Promise<GeneralResponseDto<UserDto>> {
         const user = await this.getUserByEmail(email);
         return new GeneralResponseDto(
             true,

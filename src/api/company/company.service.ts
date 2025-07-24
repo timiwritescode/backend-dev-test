@@ -26,7 +26,7 @@ export class CompanyService {
      * @param dto request dto
      * @returns General response dto with company information
      */
-    async createCompany(email: string, dto: CreateCompanyDto): Promise<GeneralResponseDto> {
+    async createCompany(email: string, dto: CreateCompanyDto): Promise<GeneralResponseDto<CompanyDto>> {
         
         const userInDb = await this.userService.getUserByEmail(email);
         const newCompany = this.companyRepo.create({
@@ -52,7 +52,7 @@ export class CompanyService {
      * @param email User email
      * @returns General response dto with company information
      */
-     async getUserCompanies(email: string, page=1, pageSize=10): Promise<GeneralResponseDto> {
+     async getUserCompanies(email: string, page=1, pageSize=10): Promise<GeneralResponseDto<MultipleUserCompaniesDto>> {
         const skip = (page - 1) * pageSize;
         const companies = await this.companyRepo.find({
             where: {user: {email}},
@@ -76,7 +76,7 @@ export class CompanyService {
      * @param companyId 
      * @returns General response dto with fetched company details
      */
-    async getUserCompanyById(email: string, companyId: string): Promise<GeneralResponseDto> {
+    async getUserCompanyById(email: string, companyId: string): Promise<GeneralResponseDto<CompanyDto>> {
         const companyInDb = await this.companyRepo.findOne({
             where: {user: {email}, customCompanyId: companyId},
             relations: {user: true}
@@ -101,7 +101,7 @@ export class CompanyService {
     async updateCompany(
         email: string, 
         companyId: string, 
-        dto: UpdateCompanyDto): Promise<GeneralResponseDto> {
+        dto: UpdateCompanyDto): Promise<GeneralResponseDto<CompanyDto>> {
         const companyInDb = await this.companyRepo.findOne({
             where: {user: {email}, customCompanyId: companyId},
             relations: {user: true}
