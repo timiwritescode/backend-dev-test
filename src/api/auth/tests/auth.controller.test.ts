@@ -4,7 +4,7 @@ import { AuthService } from "../auth.service";
 import { UserRole } from "src/entities/user.entity";
  
 
- describe("AuthService", () => {
+ describe("AuthController", () => {
      let controller: AuthController;
 
     const mockAuthService = {
