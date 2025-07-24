@@ -23,13 +23,13 @@ export class AllExceptionsFilter implements ExceptionFilter{
        
 
         if (!(exception instanceof HttpException)) {
-                    this.logger.error({
+            this.logger.error({
             message: (exception as any).message || 'Unhandled exception',
             path: request.url,
             method: request.method,
             statusCode: statusCode,
             timestamp: new Date().toISOString(),
-            stack,
+            stack: process.env.NODE_ENV === "production"? "" : stack,
             });
 
         }
