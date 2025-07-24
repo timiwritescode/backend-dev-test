@@ -4,6 +4,7 @@ import { UserModule } from './api/user/user.module';
 import { EnvModule } from './config/env.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgreSQLConfigService } from './config/typeorm.config';
+import { CompanyModule } from './api/company/company.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { PostgreSQLConfigService } from './config/typeorm.config';
       inject: [PostgreSQLConfigService]
     }),
     AuthModule, 
-    UserModule]
+    UserModule,
+    CompanyModule]
 })
 export class AppModule {}
