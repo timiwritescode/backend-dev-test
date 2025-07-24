@@ -6,7 +6,10 @@
   "scripts": {
     "build": "nest build",
     "start:dev": "nest start --watch",
-    "start:prod": "node ."
+    "start:prod": "node .",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:run": "npm run typeorm migration:run -- -d ./datasource.config.ts",
+    "migration:generate": "npm run typeorm migration:generate ./src/migrations/migration -- -d ./datasource.config.ts"
   },
   "repository": {
     "type": "git",
@@ -48,6 +51,7 @@
     "@types/axios": "^0.9.36",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }

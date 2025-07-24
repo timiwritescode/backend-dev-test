@@ -49,4 +49,28 @@ export class EnvService {
     get awsS3BucketRegion() {
         return this.env.AWS_S3_BUCKET_REGION;
     }
+
+    get dbHost() {
+        return this.env.DB_HOST
+    }
+
+    get dbPort() {
+        return this.env.DB_PORT;
+    }
+
+    get dbUser() {
+        return this.env.DB_USER;
+    }
+
+    get dbPassword() {
+        return this.env.DB_PASSWORD;
+    }
+
+    get dbName() {
+        return this.env.DB_NAME
+    }
+
+    get dbCaCertificate() {
+        return this.env.DB_CA_CERTIFICATE;
+    }
 }

@@ -45,4 +45,29 @@ export class EnvironmentVariables {
     @IsNotEmpty()
     @IsString()
     AWS_S3_BUCKET_REGION: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB_HOST: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB_PORT: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB_USER: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB_PASSWORD: string;
+
+    @IsNotEmpty()
+    @IsString()
+    DB_NAME: string;
+
+    @IsBase64()
+    @IsNotEmpty()
+    DB_CA_CERTIFICATE: string;
+    
 }

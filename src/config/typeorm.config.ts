@@ -12,11 +12,20 @@ export class PostgreSQLConfigService implements TypeOrmOptionsFactory {
 
   createTypeOrmOptions(): TypeOrmModuleOptions { 
     
-    
+    const certificate = this.envService.dbCaCertificate;
     return {
       type: 'postgres', 
-      url: this.envService.dbURI,
-      entities:  [__dirname + '/../**/*.entity{.ts,.js}'],
+      
+      host: this.envService.dbHost,
+      port: +this.envService.dbPort,
+      username: this.envService.dbUser,
+      password: this.envService.dbPassword,
+      database: this.envService.dbName,
+      ssl: {
+        rejectUnauthorized: false,
+        ca: Buffer.from(certificate, 'base64').toString('utf-8')},
+      
+        entities:  [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: this.envService.nodeEnv === NodeEnvironment.Development ? true : false,
       autoLoadEntities: true,
       migrations: [join(__dirname, '**', '*.migration.{ts,js}')], 
