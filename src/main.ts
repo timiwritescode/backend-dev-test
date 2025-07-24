@@ -18,7 +18,7 @@ async function bootstrap() {
         )
     }
   }));
-  app.use(helmet);
+  app.use(helmet());
   app.enableCors();
   app.setGlobalPrefix("/api/v1")
   
