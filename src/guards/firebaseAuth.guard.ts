@@ -4,7 +4,7 @@ import { FirebaseAdmin } from "src/config/firebase.config";
 
 @Injectable()
 export class FirebaseAuthGuard implements CanActivate {
-    constructor(private admin: FirebaseAdmin) {
+    constructor(private readonly admin: FirebaseAdmin) {
 
     }
 

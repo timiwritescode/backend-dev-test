@@ -1,4 +1,4 @@
-import { Injectable, OnApplicationBootstrap } from "@nestjs/common";
+import { Global, Injectable, OnApplicationBootstrap } from "@nestjs/common";
 import * as admin from "firebase-admin";
 import { EnvService } from "./env.service";
 

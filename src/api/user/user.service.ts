@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -28,5 +28,19 @@ export class UserService {
         });
         const savedUser = await this.userRepo.save(newUser)
         return new UserDto(savedUser);
+    }
+
+
+    public async getUserByEmail(email: string, loadCompanies = false) {
+        const userInDb = await this.userRepo.findOneOrFail({
+            where: {email},
+            relations: {companies: loadCompanies ? true: false}
+        });
+
+        if (!userInDb) {
+            throw new NotFoundException("User not found")
+        }
+
+        return userInDb
     }
 }

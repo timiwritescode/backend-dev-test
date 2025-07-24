@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Table, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Table, UpdateDateColumn } from "typeorm";
+import { Company } from "./company.entity";
 
 export enum UserRole {
     USER = "user",
@@ -26,4 +27,7 @@ export class User {
 
     @UpdateDateColumn()
     updatedAt: Date;
+
+    @OneToMany(() => Company, (company) => company.user)
+    companies: Company[];
 }
