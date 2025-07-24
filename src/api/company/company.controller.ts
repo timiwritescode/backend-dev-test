@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { FirebaseAuthGuard } from 'src/guards/firebaseAuth.guard';
 import { CreateCompanyDto } from './dto/createCompanyRequest.dto';
 import { RolesGuard } from 'src/guards/roles.guard';
@@ -14,8 +14,14 @@ export class CompanyController {
     @Get()
     @UseGuards(FirebaseAuthGuard, RolesGuard)
     @Roles(["user"])
-    async getAllUserCompanies(@Req() req) {
-        return await this.companyService.getUserCompanies(req.user.email)
+    async getAllUserCompanies(
+        @Req() req,
+        @Query('page') page: number,
+        @Query('pageSize') pageSize: number) {
+        pageSize = !pageSize ? 10 : pageSize
+        page = !page ? 1 : page
+
+        return await this.companyService.getUserCompanies(req.user.email, page, pageSize)
     }
 
 

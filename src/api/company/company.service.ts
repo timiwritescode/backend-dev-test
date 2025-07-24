@@ -52,12 +52,18 @@ export class CompanyService {
      * @param email User email
      * @returns General response dto with company information
      */
-     async getUserCompanies(email: string): Promise<GeneralResponseDto> {
-        const userInDb = await this.userService.getUserByEmail(email, true);
+     async getUserCompanies(email: string, page=1, pageSize=10): Promise<GeneralResponseDto> {
+        const skip = (page - 1) * pageSize;
+        const companies = await this.companyRepo.find({
+            where: {user: {email}},
+            skip,
+            take: pageSize,
+            relations: {user: true}
+        }) 
         return new GeneralResponseDto(
             true,
             "Fetch user company details successful",
-            new MultipleUserCompaniesDto(userInDb.companies, userInDb)
+            new MultipleUserCompaniesDto(companies)
         )
 
     }

@@ -5,12 +5,11 @@ import { User } from "src/entities/user.entity";
 
 export class MultipleUserCompaniesDto {
     companies: CompanyDto[];
-    user: UserDto
-
-    constructor(companies: Company[], user: User) {
+    
+    constructor(companies: Company[]) {
         this.companies = companies.length > 0 ?
-                        companies.map(company => new CompanyDto(company, false)):
+                        companies.map(company => new CompanyDto(company)):
                         [];
-        this.user = new UserDto(user)
+        
     }
 }
