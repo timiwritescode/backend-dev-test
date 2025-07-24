@@ -1,10 +1,17 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsStrongPassword } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsStrongPassword, Matches, NotContains } from "class-validator";
 import { UserRole } from "src/entities/user.entity";
 
 export class SignUpRequestDto {
     @IsEmail()
     @IsNotEmpty({message: "Email field cannot be empty"})
     email: string;
+
+    @IsNotEmpty()
+    @IsString()
+    @Matches(/^[a-zA-Z0-9_]+$/, {
+    message: 'Username can only contain letters, numbers, and underscores',
+  })
+    username: string;
 
     @IsNotEmpty()
     @IsStrongPassword({

@@ -22,9 +22,9 @@ export class UserService {
      * @param role user role (optional)
      * @returns User
      */
-    async createUser(email:string, uid: string, role?: UserRole): Promise<UserDto> {
+    async createUser(email:string, uid: string, username: string, role?: UserRole): Promise<UserDto> {
         const newUser = this.userRepo.create({
-            email, fireBaseAuthUserId: uid, role: role
+            email, fireBaseAuthUserId: uid, role: role, username
         });
         const savedUser = await this.userRepo.save(newUser)
         return new UserDto(savedUser);

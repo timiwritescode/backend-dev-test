@@ -23,12 +23,12 @@ export class AuthService {
             // create new firebase user
             const newUser = await app
                         .auth()
-                        .createUser({email: dto.email, password: dto.password});
-            await app.auth().setCustomUserClaims(newUser.uid, {role: "USer"})
+                        .createUser({email: dto.email, password: dto.password, displayName: dto.username});
+            await app.auth().setCustomUserClaims(newUser.uid, {role: dto.role})
         
         
             // persist firebase user to  application database
-            const response = await this.userService.createUser(dto.email, newUser.uid, dto.role as UserRole);
+            const response = await this.userService.createUser(dto.email, newUser.uid, dto.username, dto.role as UserRole);
             return new GeneralResponseDto(
                 true,
                 "User sign up successful",
