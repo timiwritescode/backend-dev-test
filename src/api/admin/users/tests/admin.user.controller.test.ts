@@ -5,7 +5,7 @@ import { FirebaseAdmin } from "src/config/firebase.config";
 import { AdminModule } from "../../admin.module";
 import { FirebaseAuthGuard } from "src/guards/firebaseAuth.guard";
 import { RolesGuard } from "src/guards/roles.guard";
-import { mockGetAllUsers, mockGetUserById, mockGetUserCompanies, mockGetUserCompanyById } from "./util/mocks";
+import { mockGetAllUsers, mockGetUserById, mockGetUserCompanies, mockGetUserCompanyById } from "./util/controllerMocks";
 import { MultipleUsersDto } from "src/api/user/dto/multipleUsers.dto";
 import { GeneralResponseDto } from "src/dto/generalResponse.dto";
 import { UserDto } from "src/api/user/dto/user.dto";
