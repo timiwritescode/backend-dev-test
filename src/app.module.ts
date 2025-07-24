@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgreSQLConfigService } from './config/typeorm.config';
 import { CompanyModule } from './api/company/company.module';
 import { AdminModule } from './api/admin/admin.module';
+import { ImageModule } from './api/image/image.module';
 
 
 @Module({
@@ -18,6 +19,7 @@ import { AdminModule } from './api/admin/admin.module';
     AuthModule, 
     UserModule,
     CompanyModule,
-    AdminModule]
+    AdminModule,
+    ImageModule]
 })
 export class AppModule {}

@@ -4,9 +4,12 @@ import { CompanyDto } from "src/api/company/dto/company.dto";
 import { MultipleUserCompaniesDto } from "src/api/company/dto/multipleCompanies.dto";
 import { MultipleUsersDto } from "src/api/user/dto/multipleUsers.dto";
 import { UserDto } from "src/api/user/dto/user.dto";
+import { AwsService } from "src/aws/aws.service";
 import { GeneralResponseDto } from "src/dto/generalResponse.dto";
 import { Company } from "src/entities/company.entity";
+import { Image } from "src/entities/image.entity";
 import { User, UserRole } from "src/entities/user.entity";
+import { generateFileHash } from "src/util/util";
 import { Repository } from "typeorm";
 
 @Injectable()

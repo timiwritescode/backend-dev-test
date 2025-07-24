@@ -1,13 +1,13 @@
-import { Controller, Get, Param, Query, UseGuards } from "@nestjs/common";
+import { BadRequestException, Controller, Get, Param, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { Roles } from "src/decorators/role.decorator";
 import { FirebaseAuthGuard } from "src/guards/firebaseAuth.guard";
 import { RolesGuard } from "src/guards/roles.guard";
 import { AdminUsersService } from "./admin.user.service";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 
-/**
- * Controller to manage all user related operations admin side
- */
+
+
 @Controller("/admin/users")
 export class AdminUsersController {
     constructor(private readonly service: AdminUsersService) {}
@@ -54,4 +54,5 @@ export class AdminUsersController {
         @Param("companyId") companyId: string) {
         return await this.service.getUserCompanyById(userId, companyId);
     }
+
 }
