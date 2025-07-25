@@ -39,6 +39,12 @@ describe("AdminUserService", () => {
         adminUserService = module.get<AdminUsersService>(AdminUsersService);
     })
 
+
+    afterEach(() => {
+    jest.clearAllMocks();
+    });
+
+    
     it("should be defined", () => {
         expect(adminUserService).toBeDefined();
     })

@@ -41,6 +41,10 @@ export class UserService {
      */
     async getUserDetails(email: string): Promise<GeneralResponseDto<UserDto>> {
         const user = await this.getUserByEmail(email);
+
+        if (!user) {
+            throw new NotFoundException("User not foun")
+        }
         return new GeneralResponseDto(
             true,
             "User retrieval successful",
@@ -50,14 +54,11 @@ export class UserService {
 
 
     public async getUserByEmail(email: string, loadCompanies = false) {
-        const userInDb = await this.userRepo.findOneOrFail({
+        const userInDb = await this.userRepo.findOne({
             where: {email},
             relations: {companies: loadCompanies ? true: false}
         });
 
-        if (!userInDb) {
-            throw new NotFoundException("User not found")
-        }
 
         return userInDb
     }

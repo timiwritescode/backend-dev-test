@@ -60,6 +60,11 @@ describe("AdminImageController", () => {
         controller = module.get<AdminImageController>(AdminImageController);
     })
 
+    afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  
     it("should be defined", () => {
         expect(controller).toBeDefined();
     })

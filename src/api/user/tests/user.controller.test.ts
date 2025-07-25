@@ -29,6 +29,10 @@ describe('UserController', () => {
     
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
@@ -44,7 +48,7 @@ describe('UserController', () => {
         data:  { email: 'email@mock.co',
                 username: "mock_username",
                 userId: "mock_id",
-                role: UserRole.ADMIN    
+                role: UserRole.ADMIN     
                 }};
 
       mockUserService.getUserDetails.mockResolvedValue(mockResponse);

@@ -29,6 +29,9 @@ export class CompanyService {
     async createCompany(email: string, dto: CreateCompanyDto): Promise<GeneralResponseDto<CompanyDto>> {
         
         const userInDb = await this.userService.getUserByEmail(email);
+        if (!userInDb) {
+            throw new NotFoundException("User not found")
+        }
         const newCompany = this.companyRepo.create({
                 companyName: dto.companyName,
                 numberOfUsers: dto.numberOfUsers,

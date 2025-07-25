@@ -41,6 +41,9 @@ import { UserRole } from "src/entities/user.entity";
          controller = module.get<AuthController>(AuthController);
      })
 
+     afterEach(() => {
+        jest.clearAllMocks();
+    });
 
      it('should be defined', () => {
         expect(controller).toBeDefined();

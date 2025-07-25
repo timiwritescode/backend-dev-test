@@ -36,6 +36,10 @@ describe("AdminUserController", () => {
     
              controller = module.get<AdminUsersController>(AdminUsersController);
          })
+
+         afterEach(() => {
+        jest.clearAllMocks();
+        });
     
     
          it('should be defined', () => {
