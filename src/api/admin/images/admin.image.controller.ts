@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, FileTypeValidator, ParseFilePipe, Post, Req, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Roles } from "src/decorators/role.decorator";
 import { FirebaseAuthGuard } from "src/guards/firebaseAuth.guard";
@@ -15,7 +15,13 @@ export class AdminImageController {
     @Roles(["admin"])
     @UseInterceptors(FileInterceptor('image'))
     async sendImageToUser(
-            @UploadedFile() image: Express.Multer.File,
+            @UploadedFile(
+                new ParseFilePipe({
+                    validators: [
+                        new FileTypeValidator({fileType: '.(png|jpeg|jpg|webp)'})
+                    ]
+                })
+            ) image: Express.Multer.File,
             @Req() req,
             @Body() dto: ImageUploadRequestDto
         ) {
