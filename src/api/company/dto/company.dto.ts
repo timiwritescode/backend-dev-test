@@ -7,6 +7,8 @@ export class CompanyDto {
     numberOfUsers: number;
     numberOfProducts: number;
     percentage: number;
+    createdAt: number;
+    updatedAt: number;
     user: UserDto;
 
     constructor(company: Company, fetchUser = true) {
@@ -15,6 +17,8 @@ export class CompanyDto {
         this.numberOfUsers = company.numberOfUsers;
         this.numberOfProducts = company.numberOfProducts;
         this.percentage = company.percentage;
+        this.createdAt = company.createdAt.getTime();
+        this.updatedAt = company.createdAt.getTime();
         this.user = fetchUser ? new UserDto(company.user): null;
     }
 }

@@ -45,6 +45,8 @@ export const mockGetUserCompanies = jest.fn().mockImplementation((userId, page, 
                 numberOfProducts: 10,
                 numberOfUsers: 2000,
                 percentage: 10,
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
                 user: {
                     email: "mock@email.co",
                     userId: "mock_user_id",
@@ -67,6 +69,8 @@ export const mockGetUserCompanyById = jest.fn().mockImplementation((userId, comp
                 numberOfProducts: 10,
                 numberOfUsers: 2000,
                 percentage: 10,
+                createdAt: 178498484,
+                updatedAt: 17839984,
                 user: {
                     email: "mock@email.co",
                     userId: "mock_user_id",

@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 import {v4 as uuidv4} from "uuid"
 
@@ -23,6 +23,13 @@ export class Company {
     @ManyToOne(() => User, (user) => user.companies, {nullable: false})
     user: User;
 
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+    
     get percentage(): number {
         // getter to get the percentage of user to products
         return (this.numberOfUsers / this.numberOfProducts) * 100

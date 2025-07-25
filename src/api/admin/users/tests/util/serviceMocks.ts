@@ -24,6 +24,8 @@ const mockComapnyObj: Company = {
     numberOfProducts: 2,
     percentage: 1,
     user: mockUserObj,
+    createdAt: new Date(),
+    updatedAt: new Date(),
     addCompanyId: jest.fn()
 }
 
