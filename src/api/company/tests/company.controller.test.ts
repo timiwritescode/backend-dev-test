@@ -10,14 +10,20 @@ import { RolesGuard } from 'src/guards/roles.guard';
 
 describe('CompanyController', () => {
   let controller: CompanyController;
-  let service: CompanyService;
+  
+  const mockResponse = {
+        success: true,
+        description: "Success",
+        data: {}
+    }
+
 
   const mockService = {
-    getUserCompanies: jest.fn(),
-    createCompany: jest.fn(),
-    getUserCompanyById: jest.fn(),
-    updateCompany: jest.fn(),
-    deleteCompany: jest.fn(),
+    getUserCompanies: jest.fn().mockResolvedValue(mockResponse),
+    createCompany: jest.fn().mockResolvedValue(mockResponse),
+    getUserCompanyById: jest.fn().mockResolvedValue(mockResponse),
+    updateCompany: jest.fn().mockResolvedValue(mockResponse),
+    deleteCompany: jest.fn().mockResolvedValue(null),
   };
 
   const mockReq = {
@@ -48,27 +54,33 @@ describe('CompanyController', () => {
 
   describe('getAllUserCompanies', () => {
     it('should call service with default pagination', async () => {
-      await controller.getAllUserCompanies(mockReq, undefined, undefined);
+      expect((await controller.getAllUserCompanies(mockReq, undefined, undefined)).success).toBe(true);
       expect(mockService.getUserCompanies).toHaveBeenCalledWith(mockReq.user.email, 1, 10);
     });
 
     it('should call service with custom pagination', async () => {
-      await controller.getAllUserCompanies(mockReq, 2, 20);
+      expect((await controller.getAllUserCompanies(mockReq, 2, 20)).success).toBe(true);
       expect(mockService.getUserCompanies).toHaveBeenCalledWith(mockReq.user.email, 2, 20);
     });
   });
 
   describe('createCompany', () => {
     it('should call createCompany with email and dto', async () => {
-      const dto: CreateCompanyDto = { name: 'Test Co' } as any;
-      await controller.createCompany(mockReq, dto);
+      const dto: CreateCompanyDto = { 
+        companyName: 'mock company',
+        numberOfProducts: 2,
+        numberOfUsers: 10000 };
+
+
+      expect((await controller.createCompany(mockReq, dto)).success).toBe(true);
       expect(mockService.createCompany).toHaveBeenCalledWith(mockReq.user.email, dto);
     });
   });
 
   describe('getCompanyDetailsById', () => {
     it('should call getUserCompanyById with email and companyId', async () => {
-      await controller.getCompanyDetailsById('123', mockReq);
+
+      expect((await controller.getCompanyDetailsById('123', mockReq)).success).toBe(true);
       expect(mockService.getUserCompanyById).toHaveBeenCalledWith(mockReq.user.email, '123');
     });
   });
@@ -76,14 +88,14 @@ describe('CompanyController', () => {
   describe('updateCompany', () => {
     it('should call updateCompany with email, id, and dto', async () => {
       const dto: UpdateCompanyDto = { name: 'Updated Co' } as any;
-      await controller.updateCompany(mockReq, '456', dto);
+      expect((await controller.updateCompany(mockReq, '456', dto)).success).toBe(true);
       expect(mockService.updateCompany).toHaveBeenCalledWith(mockReq.user.email, '456', dto);
     });
   });
 
   describe('deleteCompany', () => {
     it('should call deleteCompany with email and id', async () => {
-      await controller.deleteCompany(mockReq, '789');
+      expect(await controller.deleteCompany(mockReq, '789')).toBeNull();
       expect(mockService.deleteCompany).toHaveBeenCalledWith(mockReq.user.email, '789');
     });
   });
