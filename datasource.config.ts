@@ -3,12 +3,9 @@ import * as dotenv from 'dotenv';
 
 dotenv.config()
 
-const base64 = process.env.DB_CA_CERTIFICATE;
-// console.log(Buffer.from(base64, 'base64').toString('utf-8'))
-console.log(process.env.DB_USER)
+const certbase64 = process.env.DB_CA_CERTIFICATE;
 const config = {
       type: 'postgres',
-    //   url: process.env.DB_URI,
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
       username: process.env.DB_USER,
@@ -16,7 +13,7 @@ const config = {
       database: process.env.DB_NAME,
       ssl: {
         rejectUnauthorized: false,
-        ca: Buffer.from(base64, 'base64').toString('utf-8')},
+        ca: Buffer.from(certbase64, 'base64').toString('utf-8')},
       entities: ['src/entities/*.entity.ts'],
       migrations: ['src/migrations/*.ts'],
 }
