@@ -7,7 +7,6 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { GeneralResponseDto } from "src/dto/generalResponse.dto";
 import { ImageDto } from "src/api/image/dto/image.dto";
 import { UserRole } from "src/entities/user.entity";
-import { buffer } from "stream/consumers";
 import { ImageUploadRequestDto } from "../../dtos/imageUpload.dto";
 import { BadRequestException } from "@nestjs/common";
 
@@ -66,7 +65,7 @@ describe("AdminImageController", () => {
     })
 
 
-    it("should return GeneralResponseDto with image object in the data field", async () => {
+    it("should return success to be true, call sendImageToUser with userId, recipientId, image", async () => {
       const mockImage = {
         buffer: Buffer.from("mock-images"), 
         mimetype: "jpeg", 

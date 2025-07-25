@@ -3,13 +3,13 @@ import { IsNumber, IsOptional, IsString } from "class-validator";
 export class UpdateCompanyDto {
         @IsOptional()
         @IsString()
-        companyName: string;
+        companyName?: string;
     
         @IsOptional()
         @IsNumber()
-        numberOfUsers: number;
+        numberOfUsers?: number;
     
         @IsOptional()
         @IsNumber()
-        numberOfProducts: number;
+        numberOfProducts?: number;
 }
