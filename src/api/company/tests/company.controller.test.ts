@@ -3,7 +3,6 @@ import { CompanyController } from '../company.controller';
 import { CompanyService } from '../company.service';
 import { CreateCompanyDto } from '../dto/createCompanyRequest.dto';
 import { UpdateCompanyDto } from '../dto/updateCompany.dto';
-import { UserService } from 'src/api/user/user.service';
 import { FirebaseAuthGuard } from 'src/guards/firebaseAuth.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 
