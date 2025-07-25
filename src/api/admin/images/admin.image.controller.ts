@@ -4,7 +4,7 @@ import { Roles } from "src/decorators/role.decorator";
 import { FirebaseAuthGuard } from "src/guards/firebaseAuth.guard";
 import { RolesGuard } from "src/guards/roles.guard";
 import { AdminImageService } from "./admin.image.service";
-import { ImageUploadRequestDto } from "../dtos/imageUpload.dto";
+import { ImageUploadRequestDto } from "./dtos/imageUpload.dto";
 
 @Controller("admin/image")
 export class AdminImageController {

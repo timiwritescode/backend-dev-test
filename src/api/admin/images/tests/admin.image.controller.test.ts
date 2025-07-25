@@ -7,7 +7,7 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { GeneralResponseDto } from "src/dto/generalResponse.dto";
 import { ImageDto } from "src/api/image/dto/image.dto";
 import { UserRole } from "src/entities/user.entity";
-import { ImageUploadRequestDto } from "../../dtos/imageUpload.dto";
+import { ImageUploadRequestDto } from "../dtos/imageUpload.dto";
 import { BadRequestException } from "@nestjs/common";
 
 describe("AdminImageController", () => {
