@@ -7,19 +7,34 @@ import { NotFoundException } from '@nestjs/common';
 import { CreateCompanyDto } from '../dto/createCompanyRequest.dto';
 import { UpdateCompanyDto } from '../dto/updateCompany.dto';
 import { GeneralResponseDto } from 'src/dto/generalResponse.dto';
+import { User, UserRole } from 'src/entities/user.entity';
 
 
 describe('CompanyService', () => {
     let service: CompanyService;
-    
-    const mockCompanyObj = {
+    const mockUser: User = {
+        id: 1,
+        fireBaseAuthUserId: "mock_id",
+        username: "mock_username",
+        email: "mock@email.com",
+        role: UserRole.USER,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        imagesPosted: [],
+        imagesReceived: [],
+        companies: []
+
+    }
+    const mockCompanyObj: Company = {
     id: 1,
     companyName: "mock company name",
     customCompanyId: "companyID",
     numberOfUsers: 1000,
     numberOfProducts: 2,
     percentage: 1,
-    user: {},
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    user: mockUser,
     addCompanyId: jest.fn()
 }
 
@@ -61,15 +76,24 @@ describe('CompanyService', () => {
             const dto: CreateCompanyDto = {
                 companyName: 'Test Inc.',
                 numberOfUsers: 5,
-                numberOfProducts: 10
+                numberOfProducts: 10,
+                
             };
 
-            const user = { id: 1, email };
-            const createdCompany = { ...dto, user };
-            const savedCompany = { id: 1, ...createdCompany };
+            const mockCompany:Company = { id: 1,
+                ...dto,
+                customCompanyId: "uuid",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                percentage: 10,
+                user: mockUser,
+                addCompanyId: jest.fn()
+             };
 
-            mockUserService.getUserByEmail.mockResolvedValue(user);
-            mockCompanyRepo.create.mockReturnValue(createdCompany);
+            const savedCompany = { id: 1, ...mockCompany };
+
+            mockUserService.getUserByEmail.mockResolvedValue(mockUser);
+            mockCompanyRepo.create.mockReturnValue(mockCompany);
             mockCompanyRepo.save.mockResolvedValue(savedCompany);
 
             const result = await service.createCompany(email, dto);
@@ -136,15 +160,18 @@ describe('CompanyService', () => {
                 
             };
 
-            const company = {
-                companyName: 'Old Co.',
-                numberOfProducts: 20,
-                numberOfUsers: 3,
-                user: { email }
-            };
+            const mockCompany = { id: 1,
+                ...dto,
+                customCompanyId: "uuid",
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                percentage: 10,
+                user: mockUser,
+                addCompanyId: jest.fn()
+             };
 
-            mockCompanyRepo.findOne.mockResolvedValue(company);
-            mockCompanyRepo.save.mockResolvedValue({ ...company, ...dto });
+            mockCompanyRepo.findOne.mockResolvedValue(mockCompany);
+            mockCompanyRepo.save.mockResolvedValue(mockCompany);
 
             const result = await service.updateCompany(email, companyId, dto);
 
